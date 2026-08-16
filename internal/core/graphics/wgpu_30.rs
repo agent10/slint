@@ -47,6 +47,8 @@ pub mod api {
         pub device_experimental_features: wgpu_30::ExperimentalFeatures,
         /// The memory hints for the device.
         pub device_memory_hints: wgpu_30::MemoryHints,
+        /// KIOL
+        pub trace: wgpu_30::Trace,
     }
 
     impl Default for WGPUSettings {
@@ -66,6 +68,7 @@ pub mod api {
                 device_required_limits: wgpu_30::Limits::downlevel_webgl2_defaults(),
                 device_experimental_features: wgpu_30::ExperimentalFeatures::disabled(),
                 device_memory_hints: wgpu_30::MemoryHints::MemoryUsage,
+                trace: wgpu_30::Trace::default(),
             }
         }
     }
@@ -307,7 +310,7 @@ pub async fn async_init_instance_adapter_device_queue_surface(
                         .using_resolution(adapter.limits()),
                     experimental_features: wgpu30_settings.device_experimental_features,
                     memory_hints: wgpu30_settings.device_memory_hints,
-                    trace: wgpu::Trace::default(),
+                    trace: wgpu30_settings.trace,
                 })
                 .await
                 .map_err(|e| -> Box<dyn std::error::Error + Send + Sync + 'static> {
